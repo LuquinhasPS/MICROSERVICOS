@@ -1,0 +1,65 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15
+    container_name: clinica_db
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db-init:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  ms-cadastros:
+    build:
+      context: ./ms-cadastros
+    container_name: ms_cadastros
+    ports:
+      - "8001:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/db_cadastros
+    depends_on:
+      db:
+        condition: service_healthy
+
+  ms-agendamentos:
+    build:
+      context: ./ms-agendamentos
+    container_name: ms_agendamentos
+    ports:
+      - "8002:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/db_agendamentos
+      - MS_CADASTROS_URL=http://ms-cadastros:8000
+      - MS_FATURAMENTO_URL=http://ms-faturamento:8000
+    depends_on:
+      db:
+        condition: service_healthy
+      ms-cadastros:
+        condition: service_started
+
+  ms-faturamento:
+    build:
+      context: ./ms-faturamento
+    container_name: ms_faturamento
+    ports:
+      - "8003:8000"
+    environment:
+      - DATABASE_URL=postgresql://postgres:password@db:5432/db_faturamento
+      - MS_AGENDAMENTOS_URL=http://ms-agendamentos:8000
+    depends_on:
+      db:
+        condition: service_healthy
+      ms-agendamentos:
+        condition: service_started
+
+volumes:
+  postgres_data:
