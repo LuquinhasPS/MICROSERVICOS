@@ -25,18 +25,30 @@ O sistema é construído no padrão monorepo estruturado da seguinte forma:
 
 ```mermaid
 graph TD
-    Front[Frontend Web] --> |HTTP| MSC[MS-Cadastros :8001]
-    Front --> |HTTP| MSA[MS-Agendamentos :8002]
-    Front --> |HTTP| MSF[MS-Faturamento :8003]
-    
-    MSA --> |Validar Medico/Paciente| MSC
-    MSA --> |Outbox Reconcile| MSF
-    
-    subgraph Bancos de Dados Isolados
-        DB1[(db_cadastros)] --- MSC
-        DB2[(db_agendamentos)] --- MSA
-        DB3[(db_faturamento)] --- MSF
+    Front[Frontend Web] -->|HTTP| MSC
+    Front -->|HTTP| MSA
+    Front -->|HTTP| MSF
+
+    subgraph MSC_BOX [Microsserviço de Cadastros]
+        MSC[MS-Cadastros :8001]
+        DB1[(db_cadastros)]
+        MSC --- DB1
     end
+
+    subgraph MSA_BOX [Microsserviço de Agendamentos]
+        MSA[MS-Agendamentos :8002]
+        DB2[(db_agendamentos)]
+        MSA --- DB2
+    end
+
+    subgraph MSF_BOX [Microsserviço de Faturamento]
+        MSF[MS-Faturamento :8003]
+        DB3[(db_faturamento)]
+        MSF --- DB3
+    end
+
+    MSA -->|Validar Médico/Paciente| MSC
+    MSA -.->|Sincronização Outbox| MSF
 ```
 
 ---
