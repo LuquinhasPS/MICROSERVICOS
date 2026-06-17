@@ -13,14 +13,14 @@
 <body>
 
     <!-- Tela de Login -->
-    <div id="login-screen" style="display: flex; justify-content: center; height: 100vh; width: 100%; position: fixed; top: 0; left: 0; background-color: var(--bg-primary); z-index: 2000; padding: 2rem; overflow-y: auto;">
+    <div id="login-screen" style="display: flex; justify-content: center; height: 100vh; width: 100%; position: fixed; top: 0; left: 0; background-color: var(--bg-primary); background-image: radial-gradient(1000px 600px at 100% 0%, rgba(14, 165, 233, 0.20), transparent 60%), radial-gradient(900px 500px at 0% 100%, rgba(37, 99, 235, 0.18), transparent 55%); z-index: 2000; padding: 2rem; overflow-y: auto;">
         <div class="login-card">
             <div class="login-logo">
                 <div class="logo-icon">
                     <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #fff;"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
                 </div>
                 <div>
-                    <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: #fff; margin-bottom: 0.2rem;">Painel Clínico</h2>
+                    <h2 style="font-family: 'Outfit', sans-serif; font-size: 1.5rem; color: var(--text-primary); margin-bottom: 0.2rem;">Painel Clínico</h2>
                     <p style="font-size: 0.8rem; color: var(--text-secondary);">Identifique-se para acessar o painel</p>
                 </div>
             </div>
@@ -102,7 +102,7 @@
             <header>
                 <div class="logo-area">
                     <div class="logo-icon">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: #fff;"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                        <img src="logo.png" alt="logo da clinica">
                     </div>
                     <div class="logo-text">
                         <h1>Painel Clínico Integrado</h1>
@@ -126,8 +126,8 @@
                     </div>
                     
                     <!-- Perfil do Usuário Logado -->
-                    <div id="user-profile-header" style="margin-left: 0.5rem; display: flex; align-items: center; gap: 0.75rem; background-color: var(--bg-secondary); border: 1px solid var(--accent); padding: 0.4rem 1rem; border-radius: 20px;">
-                        <span id="user-display-name" style="font-size: 0.85rem; font-weight: 700; color: #fff;">👤 Carregando...</span>
+                    <div id="user-profile-header" style="margin-left: 0.5rem; display: flex; align-items: center; gap: 0.75rem; background-color: var(--accent-soft); border: 1px solid var(--accent-soft-border); padding: 0.4rem 1rem; border-radius: 20px;">
+                        <span id="user-display-name" style="font-size: 0.85rem; font-weight: 700; color: var(--accent-hover);">👤 Carregando...</span>
                         <button class="btn btn-secondary btn-sm" onclick="logout()" style="padding: 0.2rem 0.5rem; border-radius: 12px; font-size: 0.75rem; border-color: rgba(239, 68, 68, 0.4); color: var(--danger); background: transparent;">
                             Sair
                         </button>
